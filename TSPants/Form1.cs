@@ -32,8 +32,8 @@ namespace TSPants
             };
             pictureBox.Image = data.DrawCityList();
             var bmp = new Bitmap(pictureBox.Image);
-            //pictureBox.Image = data.DrawPath(bmp, slv.Run(data), data);
             var result = slv.Run(data);
+            pictureBox.Image = data.DrawPath(bmp, result.Edges, data);
         }
     }
 }

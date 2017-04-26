@@ -32,8 +32,8 @@ namespace TSPants
         public Ant()
         {
             var rnd = new Random();
-            Alpha = rnd.Next(0, 5);
-            Beta = rnd.Next(0, 5);
+            Alpha = rnd.Next(1, 3);
+            Beta = rnd.Next(3, 7);
             CurrentPath = new Path
             {
                 Edges = new List<Edge>()
@@ -45,7 +45,7 @@ namespace TSPants
             if (CurrentPath.Edges.Count < data.Cities.Count - 1)
             {
                 var availableEdges = new Edges(edges.Where(item => item.Start == start && item.IsVisited == false).ToList());
-                availableEdges.CalculateProbabilities(Alpha, Beta);
+                availableEdges.CalculateProbabilities(Alpha, Beta);  //take n best edges, normalize, cumulative for them
                 var rnd = new Random();
                 var probability = rnd.NextDouble();
                 var cumulatives = new List<double> {availableEdges.First().ProbabilityValue};
@@ -53,7 +53,13 @@ namespace TSPants
                 {
                     cumulatives.Add(cumulatives[i - 1] + availableEdges[i].ProbabilityValue);
                 }
-                var selectedEdge = availableEdges[cumulatives.FindIndex(item => item > probability)];
+                //var selectedEdge = availableEdges[cumulatives.FindIndex(item => item > probability)];
+                var selectedEdge = availableEdges.First();
+                foreach (var edge in availableEdges)
+                {
+                    if (selectedEdge.ProbabilityValue < edge.ProbabilityValue)
+                        selectedEdge = edge;
+                }
                 CurrentPath.Edges.Add(selectedEdge);
                 edges.Where(item => item.Start == selectedEdge.Start || item.End == selectedEdge.Start).ToList()
                     .ForEach(item => item.IsVisited = true);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TSPants
 {
@@ -67,6 +68,8 @@ namespace TSPants
         public void CalculateProbabilities(int alpha, int beta)
         {
             var sum = this.Sum(edge => edge.EuristicValue * alpha + edge.PheromoneLevel * beta);
+            if (sum - 0 < 1e-7)
+                MessageBox.Show(sum.ToString());
             foreach (var edge in this)
             {
                 edge.ProbabilityValue = (edge.EuristicValue * alpha + edge.PheromoneLevel * beta) / sum;

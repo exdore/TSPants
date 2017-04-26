@@ -11,12 +11,13 @@ namespace TSPants
 {
     public class Solver
     {
-        private int antsCount = 10;
+        
         private int iterationsCount = 10;
         public Ant.Path Run(Data data)
         {
             var edges = new Edges();
             edges.GenerateEdges(data);
+            var antsCount = data.Cities.Count / 2;
             edges.Initialize();
             var tree = new Tree();
             var minSpanTree = tree.GetMinSpanTree(edges, data.Cities.Count);
@@ -37,7 +38,7 @@ namespace TSPants
                 var pathes = new List<Ant.Path>();
                 foreach (var ant in ants)
                 {
-                    pathes.Add(ant.BuildPath(edges, data, new Random().Next(0, data.Cities.Count)));
+                    pathes.Add(ant.BuildPath(edges, data, new Random().Next(0, data.Cities.Count))); //check that all starts are different
                     edges.ForEach(item => item.IsVisited = false);
                 }
                 foreach (var path in pathes)
