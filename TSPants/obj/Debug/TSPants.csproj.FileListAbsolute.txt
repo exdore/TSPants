@@ -1,0 +1,9 @@
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\bin\Debug\TSPants.exe.config
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\bin\Debug\TSPants.exe
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\bin\Debug\TSPants.pdb
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\obj\Debug\TSPants.Form1.resources
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\obj\Debug\TSPants.Properties.Resources.resources
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\obj\Debug\TSPants.csproj.GenerateResource.Cache
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\obj\Debug\TSPants.exe
+c:\users\note\documents\visual studio 2012\Projects\TSPants\TSPants\obj\Debug\TSPants.pdb
+C:\Users\Note\Documents\Visual Studio 2012\Projects\TSPants\TSPants\obj\Debug\TSPants.csprojResolveAssemblyReference.cache
