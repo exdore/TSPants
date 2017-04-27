@@ -32,8 +32,8 @@ namespace TSPants
         public Ant()
         {
             var rnd = new Random();
-            Alpha = rnd.Next(1, 3);
-            Beta = rnd.Next(3, 7);
+            Alpha = 1;
+            Beta = 5;
             CurrentPath = new Path
             {
                 Edges = new List<Edge>()
@@ -45,21 +45,19 @@ namespace TSPants
             if (CurrentPath.Edges.Count < data.Cities.Count - 1)
             {
                 var availableEdges = new Edges(edges.Where(item => item.Start == start && item.IsVisited == false).ToList());
-                availableEdges.CalculateProbabilities(Alpha, Beta);  //take n best edges, normalize, cumulative for them
+                availableEdges.CalculateProbabilities(Alpha, Beta);  
+                var chosenEdges = availableEdges.OrderByDescending(item => item.ProbabilityValue).Take(3).ToList();
+                var sumProb = chosenEdges.Sum(item => item.ProbabilityValue);
+                chosenEdges.ForEach(item => item.ProbabilityValue /= sumProb);
                 var rnd = new Random();
                 var probability = rnd.NextDouble();
-                var cumulatives = new List<double> {availableEdges.First().ProbabilityValue};
-                for (int i = 1; i < availableEdges.Count; i++)
+                var cumulatives = new List<double> { chosenEdges.First().ProbabilityValue };
+                for (int i = 1; i < chosenEdges.Count; i++)
                 {
-                    cumulatives.Add(cumulatives[i - 1] + availableEdges[i].ProbabilityValue);
+                    cumulatives.Add(cumulatives[i - 1] + chosenEdges[i].ProbabilityValue);
                 }
-                //var selectedEdge = availableEdges[cumulatives.FindIndex(item => item > probability)];
-                var selectedEdge = availableEdges.First();
-                foreach (var edge in availableEdges)
-                {
-                    if (selectedEdge.ProbabilityValue < edge.ProbabilityValue)
-                        selectedEdge = edge;
-                }
+                //var selectedEdge = chosenEdges[cumulatives.FindIndex(item => item > probability)];
+                var selectedEdge = chosenEdges.First();
                 CurrentPath.Edges.Add(selectedEdge);
                 edges.Where(item => item.Start == selectedEdge.Start || item.End == selectedEdge.Start).ToList()
                     .ForEach(item => item.IsVisited = true);
