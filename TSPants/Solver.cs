@@ -39,6 +39,7 @@ namespace TSPants
                 var start = 0;
                 foreach (var ant in ants)
                 {
+                    pathes.Add(ant.BuildPath(edges, data, start));
                     edges.ForEach(item => item.IsVisited = false);
                     start++;
                 }
