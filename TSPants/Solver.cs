@@ -17,7 +17,7 @@ namespace TSPants
         {
             var edges = new Edges();
             edges.GenerateEdges(data);
-            var antsCount = data.Cities.Count / 2;
+            var antsCount = data.Cities.Count;
             edges.Initialize();
             var tree = new Tree();
             var minSpanTree = tree.GetMinSpanTree(edges, data.Cities.Count);
@@ -36,10 +36,11 @@ namespace TSPants
                     ants.Add(new Ant());
                 }
                 var pathes = new List<Ant.Path>();
+                var start = 0;
                 foreach (var ant in ants)
                 {
-                    pathes.Add(ant.BuildPath(edges, data, new Random().Next(0, data.Cities.Count))); //check that all starts are different
                     edges.ForEach(item => item.IsVisited = false);
+                    start++;
                 }
                 foreach (var path in pathes)
                 {
